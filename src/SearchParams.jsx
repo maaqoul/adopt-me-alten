@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Pet from "./Pet";
+import useBreedList from "../useBreedList";
 
 const ANIMALS = ["cat", "dog", "bird"];
 const SearchParams = () => {
@@ -8,10 +9,11 @@ const SearchParams = () => {
   const [breed, setBreed] = useState("");
   const [pets, setPets] = useState([]);
 
-  const breeds = [];
+  const breeds = useBreedList(animal)[0];
 
   useEffect(() => {
     fetchPets();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function fetchPets() {
