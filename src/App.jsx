@@ -1,13 +1,21 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import SearchParams from "./SearchParams";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+
+import SearchParams from "./app/containers/SearchParams";
+import Info from "./app/components/Info";
 
 const App = () => {
   return (
-    <div>
-      <h1>Adopt me!</h1>
-      <SearchParams />
-    </div>
+    <BrowserRouter>
+      <header>
+        <Link to="/">Adopt me!</Link>
+      </header>
+      <Routes>
+        <Route path="/" element={<SearchParams />} />
+        <Route path="/info/:id" element={<Info />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
