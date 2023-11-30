@@ -29,6 +29,10 @@ const SearchParams = () => {
     setPets(fetchedPets);
   }
 
+  function sanitizeInput(query) {
+    return query.trim().toLowerCase();
+  }
+
   return (
     <div className="search-params">
       <form
@@ -43,7 +47,7 @@ const SearchParams = () => {
           id="location"
           value={location}
           placeholder="Location"
-          onChange={(e) => setLocation(e.target.value)}
+          onChange={(e) => setLocation(sanitizeInput(e.target.value))}
         />
         <label htmlFor="animal">Animal</label>
         <select id="animal" onChange={(e) => setAnimal(e.target.value)}>
@@ -56,7 +60,7 @@ const SearchParams = () => {
         <select
           id="breed"
           disabled={!breeds.length}
-          onChange={(e) => setBreed(e.target.value)}
+          onChange={(e) => setBreed(sanitizeInput(e.target.value))}
         >
           <option />
           {breeds.map((breed, index) => (

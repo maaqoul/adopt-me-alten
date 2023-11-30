@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Pet = ({ animal, name, breed, location, image, id }) => {
+const Pet = ({ animal, name, breed, location, images, id }) => {
   let img = "";
-  if (image.includes("example")) {
+  if (!images.length) {
     img = "https://placehold.co/600x400";
   } else {
-    img = image;
+    img = images[0];
   }
   return (
     // eslint-disable-next-line jsx-a11y/anchor-is-valid
