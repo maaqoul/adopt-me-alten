@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router";
 import fetchPet from "../../api/fetchPet";
@@ -6,13 +6,14 @@ import Carousel from "./Carousel";
 import ErrorBoundary from "./ErrorBoundary";
 import Modal from "./Modal";
 import AdoptedPetContext from "../../context/AdoptPetContext";
+import { Pet } from "../../model/APIResponseTypes";
 
 const Info = () => {
   const { id } = useParams();
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
   const [, setAdoptedPet] = useContext(AdoptedPetContext);
-  const results = useQuery(["details", id], fetchPet);
+  const results = useQuery<Pet>(["details", id], fetchPet);
 
   if (results.isLoading) {
     return (
@@ -21,7 +22,10 @@ const Info = () => {
       </div>
     );
   }
-  const pet = results.data[0];
+  const pet: Pet = results.data?.[0];
+  if (!pet) {
+    throw new Error("pet not found");
+  }
   const { name, animal, breed, location, images } = pet;
 
   return (

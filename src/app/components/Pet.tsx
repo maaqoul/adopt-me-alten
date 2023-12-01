@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Pet } from "../../model/APIResponseTypes";
 
-const Pet = ({ animal, name, breed, location, images, id }) => {
+const Pet = ({ animal, name, breed, location, images, id }: Pet) => {
   let img = "";
   if (!images.length) {
     img = "https://placehold.co/600x400";

@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/maaqoul/adopt-me-alten#readme",
   "devDependencies": {
+    "@types/react": "^18.2.39",
     "@typescript-eslint/eslint-plugin": "^5.40.1",
     "@typescript-eslint/parser": "^5.40.1",
     "@vitejs/plugin-react": "^2.1.0",
