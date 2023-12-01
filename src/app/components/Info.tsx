@@ -1,19 +1,22 @@
 import React, { useContext, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router";
+import { useDispatch } from "react-redux";
+
 import fetchPet from "../../api/fetchPet";
 import Carousel from "./Carousel";
 import ErrorBoundary from "./ErrorBoundary";
 import Modal from "./Modal";
-import AdoptedPetContext from "../../context/AdoptPetContext";
 import { Pet } from "../../model/APIResponseTypes";
+import { adopt } from "../../slices/adoptedPetSlice";
 
 const Info = () => {
   const { id } = useParams();
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
-  const [, setAdoptedPet] = useContext(AdoptedPetContext);
   const results = useQuery<Pet>(["details", id], fetchPet);
+
+  const dispatch = useDispatch();
 
   if (results.isLoading) {
     return (
@@ -49,7 +52,7 @@ const Info = () => {
               <div className="buttons">
                 <button
                   onClick={() => {
-                    setAdoptedPet(pet);
+                    dispatch(adopt(pet));
                     navigate("/");
                   }}
                 >

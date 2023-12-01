@@ -1,10 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import useBreedList from "../../hooks/useBreedList";
 import Result from "../components/Result";
 import { useQuery } from "@tanstack/react-query";
+import { useSelector, useDispatch } from "react-redux";
+
 import fetchSearch from "../../api/fetchSearch";
-import AdoptedPetContext from "../../context/AdoptPetContext";
 import { Animal } from "../../model/APIResponseTypes";
+import { all } from "../../slices/searchParamsSlice";
 
 const ANIMALS: Animal[] = ["cat", "dog", "bird"];
 const SearchParams = () => {
@@ -17,10 +19,11 @@ const SearchParams = () => {
 
   const breeds = useBreedList(animal)[0];
 
-  const results = useQuery(["search", requestParams], fetchSearch);
+  const dispatch = useDispatch();
+  const adoptedPet = useSelector((state: any) => state.adoptedPet.value);
+  const searchParams = useSelector((state: any) => state.searchParams.value);
+  const results = useQuery(["search", searchParams], fetchSearch);
   const pets = results?.data;
-
-  const [adoptedPet] = useContext(AdoptedPetContext);
 
   return (
     <div className="search-params">
@@ -28,21 +31,22 @@ const SearchParams = () => {
         onSubmit={(e) => {
           e.preventDefault();
           const formData = new FormData(e.currentTarget);
-          console.log("formData :", formData);
           const obj = {
             animal: formData.get("animal")?.toString() ?? "",
             breed: formData.get("breed")?.toString() ?? "",
             location: formData.get("location")?.toString() ?? "",
           };
-          setRequestParams(obj);
+          dispatch(all(obj));
         }}
       >
         {adoptedPet ? (
-          <div className="pet image-container">
-            <img src={adoptedPet.images[0]} alt={adoptedPet.name} />
+          <div>
+            <h1>{adoptedPet.name} has been adopted</h1>
+            <div className="pet image-container">
+              <img src={adoptedPet.images[0]} alt={adoptedPet.name} />
+            </div>
           </div>
         ) : null}
-
         <label htmlFor="location">Location</label>
         <input
           type="text"
