@@ -1,6 +1,7 @@
 import React from "react";
 import { Pet as PetType } from "../../model/APIResponseTypes";
-import Pet from "./Pet";
+
+import Animal from "./Animal";
 
 const Result = ({ pets }: { pets: PetType[] }) => {
   return (
@@ -9,7 +10,7 @@ const Result = ({ pets }: { pets: PetType[] }) => {
         <h1> no pets found</h1>
       ) : (
         pets.map((pet) => (
-          <Pet
+          <Animal
             key={pet.id}
             name={pet.name}
             animal={pet.animal}

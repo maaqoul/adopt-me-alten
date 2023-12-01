@@ -4,12 +4,12 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --quiet",
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/maaqoul/adopt-me-alten#readme",
   "devDependencies": {
+    "@testing-library/react": "^13.4.0",
     "@types/react": "^18.2.39",
     "@typescript-eslint/eslint-plugin": "^5.40.1",
     "@typescript-eslint/parser": "^5.40.1",
@@ -34,8 +35,10 @@
     "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-react": "^7.31.8",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "happy-dom": "^7.6.0",
     "prettier": "^2.7.1",
-    "vite": "^3.1.4"
+    "vite": "^3.1.4",
+    "vitest": "^0.24.3"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.6",
